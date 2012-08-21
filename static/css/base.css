@@ -1,0 +1,108 @@
+.hotpink {
+    color:#F52887;
+}
+html, body{
+    height:100%;
+}
+body {
+    font-family:'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+    color:#444;
+    padding:0px;
+    margin:0px;
+    font-size:15px;
+}
+#Container {
+    min-height:100%;
+    background-color:white;
+    margin:0px;
+    position:relative;
+}
+html #Container {
+    height:100%;
+}
+h1 {
+    font-size:45px;
+    margin:0px;
+    padding:0px;
+}
+a {
+    font-family:'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+    color:#444;
+}
+a:visited {
+    color:#444;
+}
+img {
+    margin:0px;
+    padding:0px;
+    border:none;
+}
+#Container div.title {
+    padding:15px 30px;
+}
+#Container div.menu {
+    border-top:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    padding:0px 30px;
+    height:40px;
+}
+#Container div.menu a.menu_item {
+    display:block;
+    float:left;
+    text-decoration:none;
+    line-height:40px;
+    height:40px;
+    padding:0px 15px;
+    margin-right:5px;
+}
+#Container div.menu a.menu_item:hover {
+    cursor:pointer;
+    font-weight:bold;
+}
+#Container div.contents {
+    padding:15px 30px;
+}
+#Container div.contents div.subtitle {
+    font-size:20px;
+    margin:3px 0px;
+}
+#Container div.contents div.description {
+    color:#666;
+    font-size:13px;
+    margin:3px 0px;
+}
+#Container div.footer {
+    padding:5px 30px;
+    font-size:13px;
+}
+
+.form {
+    margin:0px;
+    padding:0px;
+    border:none;
+    display:block;
+}
+.form div.tag {
+    font-size:17px;
+    line-height:30px;
+}
+.form div.input {
+    line-height:30px;
+}
+.form div.input input.text {
+    margin:0px;
+    padding:0px;
+    line-height:25px;
+    border:1px solid #aaa;
+}
+.form div.input input.button {
+    border:1px solid #ddd;
+    background-color:white;
+    margin:0px;
+    padding:0px 20px;
+    line-height:25px;
+}
+.form div.input input.button:hover{
+    cursor:pointer;
+    border:1px solid #aaa;
+}

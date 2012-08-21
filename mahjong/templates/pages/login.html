@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block header %}
+<style type='text/css'>
+</style>
+{% endblock %}
+{% block contents %}
+<div class='subtitle'>로그인이 필요합니다.</div>
+<div class='description'>회원가입같은건 없으니 노래새한테 연락해서 아이디를 만들어달라고 하세요.</div>
+<form action='/login_proc' method='post' class='form' style='margin:15px 0px;'>
+    {% csrf_token %}
+    <input type='hidden' value='{{ next }}' name='next' />
+    <div class='tag'>아이디</div>
+    <div class='input'><input type='text' class='text' name='username' style='width:200px;' /></div>
+    <div class='tag'>비밀번호</div>
+    <div class='input'><input type='password' class='text' name='password' style='width:200px;' /></div>
+    <div class='input' style='margin-top:10px;'><input type='submit' class='button' value='로그인' /></div>
+</form>
+{% endblock %}
+{% block additional %}
+{% endblock %}
