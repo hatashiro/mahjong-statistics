@@ -72,7 +72,7 @@ class Player(models.Model):
     user = models.ForeignKey(User)
     record = models.ForeignKey(Record)
 
-    kaze = CharField(max_length=4)
+    kaze = models.CharField(max_length=4)
     point = models.IntegerField()
     rank = models.IntegerField(default=0)
 
