@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     # custom apps
     'auths',
     'pages',
+    'records',
 )
 
 # A sample logging configuration. The only tangible logging

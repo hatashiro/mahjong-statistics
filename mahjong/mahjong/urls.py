@@ -21,4 +21,8 @@ urlpatterns = patterns('',
     # auth proc urls
     url(r'^login_proc$', 'auths.views.login_proc'),
     url(r'^logout_proc$', 'auths.views.logout_proc'),
+
+    # record proc urls
+    url(r'^submit_record_proc$', 'records.views.submit_record_proc'),
+    url(r'^modify_record_proc$', 'records.views.modify_record_proc'),
 )
