@@ -27,8 +27,8 @@ def submit_record_proc(request):
         sha_score = int(request.POST['sha_score'])
         pei_score = int(request.POST['pei_score'])
         match_type = int(request.POST['match_type'])
-    except KeyError:
-        raise Http404
+    except:
+        return HttpResponse("Invalid inputs...");
 
     try:
         extra_point = int(request.POST['extra_point'])
@@ -54,13 +54,13 @@ def submit_record_proc(request):
         return HttpResponse("Invalid users...");
 
     # create player
-    tonn_player = Player(user=tonn, record=record, kaze="동", point=tonn_point)
+    tonn_player = Player(user=tonn, record=record, kaze="동", point=tonn_score)
     tonn_player.save()
-    nann_player = Player(user=nann, record=record, kaze="남", point=nann_point)
+    nann_player = Player(user=nann, record=record, kaze="남", point=nann_score)
     nann_player.save()
-    sha_player = Player(user=sha, record=record, kaze="서", point=sha_point)
+    sha_player = Player(user=sha, record=record, kaze="서", point=sha_score)
     sha_player.save()
-    pei_player = Player(user=pei, record=record, kaze="북", point=pei_point)
+    pei_player = Player(user=pei, record=record, kaze="북", point=pei_score)
     pei_player.save()
 
     return HttpResponseRedirect("/submit_record")
@@ -78,8 +78,8 @@ def modify_record_proc(request):
         sha_score = int(request.POST['sha_score'])
         pei_score = int(request.POST['pei_score'])
         match_type = int(request.POST['match_type'])
-    except KeyError:
-        raise Http404
+    except:
+        return HttpResponse("Invalid inputs...");
 
     try:
         extra_point = int(request.POST['extra_point'])
@@ -110,13 +110,13 @@ def modify_record_proc(request):
     Player.objects.filter(record=record).delete()
 
     # create player
-    tonn_player = Player(user=tonn, record=record, kaze="동", point=tonn_point)
+    tonn_player = Player(user=tonn, record=record, kaze="동", point=tonn_score)
     tonn_player.save()
-    nann_player = Player(user=nann, record=record, kaze="남", point=nann_point)
+    nann_player = Player(user=nann, record=record, kaze="남", point=nann_score)
     nann_player.save()
-    sha_player = Player(user=sha, record=record, kaze="서", point=sha_point)
+    sha_player = Player(user=sha, record=record, kaze="서", point=sha_score)
     sha_player.save()
-    pei_player = Player(user=pei, record=record, kaze="북", point=pei_point)
+    pei_player = Player(user=pei, record=record, kaze="북", point=pei_score)
     pei_player.save()
 
     return HttpResponseRedirect("/submit_record?rid="+rid)

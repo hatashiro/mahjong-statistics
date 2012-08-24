@@ -14,15 +14,15 @@ class Record(models.Model):
 
     def __unicode__(self):
         result = u"Record : "
-        for player in self.players:
+        for player in self.player_set.all():
             result += " %s" % player.user.first_name
         return result
 
     def order_rank(self):
         rank = []
-        for player in self.players.all():
-            rank.append([player, point])
-        rank = sorted(rank, key=lambda player: player[1])
+        for player in self.player_set.all():
+            rank.append([player, player.point])
+        rank = sorted(rank, key=lambda player: -player[1])
 
         for element in rank:
             element.append(rank.index(element)+1)
@@ -42,7 +42,7 @@ class Record(models.Model):
 
     def normalize(self):
         point_sum = 0
-        for player in self.players.all():
+        for player in self.player_set.all():
             point_sum += player.point
 
         total = point_sum + self.extra_point
@@ -52,7 +52,7 @@ class Record(models.Model):
         else:
             if total % 10000 == 0 and total % 4 == 0:
                 point_to_minus = total / 4
-                for player in self.players.all():
+                for player in self.player_set.all():
                     player.point -= point_to_minus
                     player.save()
                 self.extra_point = 0

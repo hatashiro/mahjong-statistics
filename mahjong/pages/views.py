@@ -28,10 +28,10 @@ def submit_record(request):
         record = None
 
     if record:
-        tonn = record.players.get(kaze="동")
-        nann = record.players.get(kaze="남")
-        sha = record.players.get(kaze="서")
-        pei = record.players.get(kaze="북")
+        tonn = record.player_set.get(kaze="동")
+        nann = record.player_set.get(kaze="남")
+        sha = record.player_set.get(kaze="서")
+        pei = record.player_set.get(kaze="북")
 
         players = {
             "tonn": tonn,
@@ -43,3 +43,7 @@ def submit_record(request):
         players = None
 
     return render(request, 'pages/submit_record.html', {'record': record, 'players': players})
+
+@login_required
+def records(request):
+    return render(request, 'pages/records.html', {})

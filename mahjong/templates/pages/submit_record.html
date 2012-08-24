@@ -1,4 +1,109 @@
 {% extends "base.html" %}
+{% block header %}
+<link href='/static/css/submit_record.css' rel='stylesheet' type='text/css' />
+{% endblock %}
 {% block contents %}
-    <div>temp?</div>
+    <div class='subtitle'>기록 입력</div>
+    <div class='description'>기록을 정확하게 입력해주세요. 기록에는 우마점수는 포함하지 말아주세요. 기록은 전체 합이 10,000의 배수이며, 4로 나누어 떨어져야합니다.<br/>유저를 입력할때는 자동입력을 이용하세요.</div>
+    <form action='/{% if record %}modify{% else %}submit{% endif %}_record_proc' method='post' class='form record_form'>{% csrf_token %}
+        {% if record %}<input type='hidden' value='{{ record.id }}' name='rid' />{% endif %}
+        <div class='kaze'>
+            <div class='kaze_type'>동</div>
+            <div class='tag'>유저</div>
+            <div class='input'><input type='text' class='text' value='{{ players.tonn.user.first_name }}' name='tonn_username' tabindex='1'/></div>
+            <div class='tag'>점수</div>
+            <div class='input'><input type='text' class='text' value='{{ players.tonn.point }}' name='tonn_score' tabindex='5'/></div>
+        </div>
+        <div class='kaze'>
+            <div class='kaze_type'>남</div>
+            <div class='tag'>유저</div>
+            <div class='input'><input type='text' class='text' value='{{ players.nann.user.first_name }}' name='nann_username' tabindex='2'/></div>
+            <div class='tag'>점수</div>
+            <div class='input'><input type='text' class='text' value='{{ players.nann.point }}' name='nann_score' tabindex='6'/></div>
+        </div>
+        <div class='kaze'>
+            <div class='kaze_type'>서</div>
+            <div class='tag'>유저</div>
+            <div class='input'><input type='text' class='text' value='{{ players.sha.user.first_name }}' name='sha_username' tabindex='3'/></div>
+            <div class='tag'>점수</div>
+            <div class='input'><input type='text' class='text' value='{{ players.sha.point }}' name='sha_score' tabindex='7'/></div>
+        </div>
+        <div class='kaze'>
+            <div class='kaze_type'>북</div>
+            <div class='tag'>유저</div>
+            <div class='input'><input type='text' class='text' value='{{ players.pei.user.first_name }}' name='pei_username' tabindex='4'/></div>
+            <div class='tag'>점수</div>
+            <div class='input'><input type='text' class='text' value='{{ players.pei.point }}' name='pei_score' tabindex='8'/></div>
+        </div>
+        <div class='match_type'>
+            <div class='tag'>대국 종류</div>
+            <select name='match_type' tabindex='9'>
+                <option value='1' {% if record.match_type == 1 %}selected='selected'{% endif %}>동풍</option>
+                <option value='2' {% if record.match_type == 2 or not record %}selected='selected'{% endif %}>반장</option>
+            </select>
+        </div>
+        <div class='input' style='margin-top:15px;'>
+            <input type='button' class='button' value='기록' tabindex='10' onclick='this.form.submit()'/>
+        </div>
+    </form>
+{% endblock %}
+{% block additional %}
+<script type='text/javascript'>
+    function setNumberOnly(input) {
+        $(input).keypress(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+        $(input).keydown(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+        $(input).keyup(function(e) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+    }
+    $(function() {
+        // user list source
+        var userlist = [];
+        $.ajax({
+            url: '/xml/users',
+            type: 'GET',
+            success: function(xml) {
+                $('user', xml).each(function() {
+                    userlist.push($(this).attr('first_name'));
+                });
+
+                // autocomplete
+                $('input[name="tonn_username"]').autocomplete({
+                    minLength: 0,
+                    source: userlist
+                });
+                $('input[name="nann_username"]').autocomplete({
+                    minLength: 0,
+                    source: userlist
+                });
+                $('input[name="sha_username"]').autocomplete({
+                    minLength: 0,
+                    source: userlist
+                });
+                $('input[name="pei_username"]').autocomplete({
+                    minLength: 0,
+                    source: userlist
+                });
+            }
+        });
+
+        setNumberOnly('input[name="tonn_score"]');
+        setNumberOnly('input[name="nann_score"]');
+        setNumberOnly('input[name="sha_score"]');
+        setNumberOnly('input[name="pei_score"]');
+    });
+</script>
 {% endblock %}

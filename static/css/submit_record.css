@@ -1,0 +1,23 @@
+.record_form {
+    margin-top:20px;
+}
+.record_form .kaze {
+    float:left;
+    margin-right:20px;
+}
+.record_form .kaze .kaze_type {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.record_form .match_type {
+    padding-top:10px;
+    clear:both;
+    width:100%;
+}
+.record_form .match_type select {
+    margin: 0px;
+    padding: 0px;
+    line-height: 25px;
+    border: 1px solid #AAA;
+    width: 100px;
+}
