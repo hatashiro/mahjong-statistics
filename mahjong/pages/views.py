@@ -47,3 +47,7 @@ def submit_record(request):
 @login_required
 def records(request):
     return render(request, 'pages/records.html', {})
+
+@login_required
+def change_passwd(request):
+    return render(request, 'pages/change_passwd.html', {})

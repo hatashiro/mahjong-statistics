@@ -34,6 +34,18 @@ def logout_proc(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+@login_required
+def changepasswd_proc(request):
+    try:
+        passwd = request.POST['passwd']
+    except KeyError:
+        raise Http404
+
+    request.user.set_password(passwd)
+    request.user.save()
+
+    return HttpResponseRedirect('/change_passwd')
+
 def xml_users(request):
     users = User.objects.all()
     return render(request, 'xml/users.xml', {"users": users})

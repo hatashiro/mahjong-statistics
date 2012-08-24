@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block contents %}
+    <div class='subtitle'>비밀번호 변경</div>
+    <div class='description'>비밀번호를 변경합니다.</div>
+    <form class='form' action='/changepasswd_proc' method='post' onsubmit='return check_passwd(this);'>{% csrf_token %}
+        <div class='tag'>변경할 비밀번호</div>
+        <div class='input'><input type='password' name='passwd' class='text' /></div>
+        <div class='tag'>비밀번호 확인</div>
+        <div class='input'><input type='password' name='passwd_confirm' class='text' /></div>
+        <div class='input' style='margin-top:10px;'><input type='submit' class='button' value='변경' /></div>
+    </form>
+    <script type='text/javascript'>
+        function check_passwd(form) {
+            var p = $('input[name="passwd"]', form);
+            var _p = $('input[name="passwd_confirm"]', form);
+            if(p.val() != '' && _p.val() != '' && p.val() == _p.val())
+                return true;
+            else {
+                alert("비밀번호가 잘못됬어요...");
+                return false;
+            }
+        }
+    </script>
+{% endblock %}

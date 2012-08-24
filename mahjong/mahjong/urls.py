@@ -19,10 +19,12 @@ urlpatterns = patterns('',
     url(r'^login$', 'pages.views.login'),
     url(r'^submit_record$', 'pages.views.submit_record'),
     url(r'^records$', 'pages.views.records'),
+    url(r'^change_passwd$', 'pages.views.change_passwd'),
 
     # auth proc urls
     url(r'^login_proc$', 'auths.views.login_proc'),
     url(r'^logout_proc$', 'auths.views.logout_proc'),
+    url(r'^changepasswd_proc', 'auths.views.changepasswd_proc'),
 
     # record proc urls
     url(r'^submit_record_proc$', 'records.views.submit_record_proc'),
