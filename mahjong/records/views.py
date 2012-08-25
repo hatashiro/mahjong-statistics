@@ -134,7 +134,7 @@ def modify_record_proc(request):
     pei_player = Player(user=pei, record=record, kaze="북", point=pei_score)
     pei_player.save()
 
-    return HttpResponseRedirect("/submit_record?rid="+rid)
+    return HttpResponseRedirect("/records")
 
 @permission_required("records.submit_records")
 def delete_record_proc(request):
