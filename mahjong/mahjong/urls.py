@@ -33,4 +33,7 @@ urlpatterns = patterns('',
 
     # xmls
     url(r'^xml/users$', 'auths.views.xml_users'),
+
+    # database backup
+    url(r'^backupdb_proc$', 'auths.views.backupdb_proc'),
 )
