@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
 from records.models import Record
 
+from datetime import datetime
+
 @login_required
 def index(request):
     return render(request, 'pages/index.html', {})
@@ -46,7 +48,49 @@ def submit_record(request):
 
 @login_required
 def records(request):
-    return render(request, 'pages/records.html', {})
+    try:
+        year = request.GET['year']
+        if year == 'all':
+            entire = True
+        else:
+            year = int(year)
+            month = int(request.GET['month'])
+            entire = False
+    except:
+        entire = False
+        year = datetime.now().year
+        month = datetime.now().month
+
+    if not entire:
+        to_year = year
+        to_month = month + 1
+        if to_month > 12:
+            to_month -= 12
+            to_year += 1
+
+    # get date range
+    date_range = {}
+    try:
+        date_oldest = Record.objects.filter(valid=True).order_by('uploaded')[0].uploaded
+    except:
+        date_oldest = datetime.now()
+
+    for _year in range(datetime.now().year, date_oldest.year-1, -1):
+
+        date_range[_year] = []
+        for _month in range(12, 0, -1):
+            if _year == date_oldest.year and _month < date_oldest.month:
+                continue
+            if _year == datetime.now().year and _month > datetime.now().month:
+                continue
+            date_range[_year].append(_month)
+
+    if entire:
+        records = Record.objects.filter(valid=True)
+    else:
+        records = Record.objects.filter(valid=True, uploaded__gte=datetime(year, month, 1), uploaded__lt=datetime(to_year, to_month, 1))
+
+    return render(request, 'pages/records.html', {'date_range': date_range, 'records': records})
 
 @login_required
 def change_passwd(request):

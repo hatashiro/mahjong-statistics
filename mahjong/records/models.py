@@ -10,7 +10,7 @@ class Record(models.Model):
     match_type = models.IntegerField(default=2) # 1 for tonn / 2 for hann
 
     valid = models.BooleanField(default = True)
-    uploaded = models.DateTimeField(auto_now = True)
+    uploaded = models.DateTimeField(auto_now_add = True)
 
     replay_url = models.URLField(default=None, null=True, blank=True)
 
@@ -69,6 +69,7 @@ class Record(models.Model):
         permissions = (
             ("submit_records", "Can submit a record."),
         )
+        ordering = ['-uploaded']
 
 class Player(models.Model):
     user = models.ForeignKey(User)

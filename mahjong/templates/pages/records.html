@@ -5,4 +5,54 @@
 {% block contents %}
     <div class='subtitle'>기록 확인</div>
     <div class='description'>대국 기록들을 확인할 수 있습니다.</div>
+    <div class='dates'>
+        <div class='description' style='margin-bottom:10px;'>검색 범위</div>
+        <a href='/records?year=all'>전체</a>
+        {% for year in date_range.items %}
+            {% for month in year.1 %}
+            <a href='/records?year={{ year.0 }}&month={{ month }}'>{{ year.0 }}년 {{ month }}월</a>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% if records.count %}
+    <table class='record_table'>
+        <tr>
+            <th>일시</th>
+            <th>국 길이</th>
+            <th>1위</th>
+            <th>2위</th>
+            <th>3위</th>
+            <th>4위</th>
+            {% if perms.records.submit_records %}
+            <th>관리</th>
+            {% endif %}
+        {% for record in records %}
+        <tr>
+            <td>{{ record.uploaded }}</td>
+            <td>{% if record.match_type == 1 %}동풍{% else %}반장{% endif %}</td>
+            <td>[ {{ record.player_set.all.0.kaze }} ] {{ record.player_set.all.0.user.first_name }}: {{ record.player_set.all.0.point }}</td>
+            <td>[ {{ record.player_set.all.1.kaze }} ] {{ record.player_set.all.1.user.first_name }}: {{ record.player_set.all.1.point }}</td>
+            <td>[ {{ record.player_set.all.2.kaze }} ] {{ record.player_set.all.2.user.first_name }}: {{ record.player_set.all.2.point }}</td>
+            <td>[ {{ record.player_set.all.3.kaze }} ] {{ record.player_set.all.3.user.first_name }}: {{ record.player_set.all.3.point }}</td>
+            {% if perms.records.submit_records %}
+            <td>
+                <a href='/submit_record?rid={{ record.id }}'>수정</a>&nbsp;
+                <a href='/delete_record_proc?rid={{ record.id }}' onclick='return confirm_delete()'>삭제</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <div style='padding:20px 0px;font-size:25px;'>기록이 없네요...</div>
+    {% endif %}
+    {% if perms.records.submit_records %}
+    <script type='text/javascript'>
+        function confirm_delete() {
+            if(!confirm("진짜 삭제하시겠어요?")) {
+                return false;
+            }
+       }
+    </script>
+    {% endif %}
 {% endblock %}
