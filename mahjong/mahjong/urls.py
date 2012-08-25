@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     # record proc urls
     url(r'^submit_record_proc$', 'records.views.submit_record_proc'),
     url(r'^modify_record_proc$', 'records.views.modify_record_proc'),
+    url(r'^delete_record_proc$', 'records.views.delete_record_proc'),
 
     # xmls
     url(r'^xml/users$', 'auths.views.xml_users'),

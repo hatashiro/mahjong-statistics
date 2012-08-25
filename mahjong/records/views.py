@@ -135,3 +135,16 @@ def modify_record_proc(request):
     pei_player.save()
 
     return HttpResponseRedirect("/submit_record?rid="+rid)
+
+@permission_required("records.submit_records")
+def delete_record_proc(request):
+    try:
+        rid = request.GET['rid']
+    except KeyError:
+        raise Http404
+
+    record = Record.objects.get(id=rid)
+    record.valid = False
+    record.save()
+
+    return HttpResponseRedirect("/records")
