@@ -1,2 +1,3 @@
 mahjong/mahjong-sqlite3
 *.pyc
+migrations
