@@ -12,6 +12,8 @@ class Record(models.Model):
     valid = models.BooleanField(default = True)
     uploaded = models.DateTimeField(auto_now = True)
 
+    replay_url = models.URLField(default=None, null=True, blank=True)
+
     def __unicode__(self):
         result = u"Record : "
         for player in self.player_set.all():

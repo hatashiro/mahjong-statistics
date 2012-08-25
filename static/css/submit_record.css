@@ -21,3 +21,8 @@
     border: 1px solid #AAA;
     width: 100px;
 }
+.record_form .replay_url {
+    padding-top:10px;
+    clear:both;
+    width:100%l
+}

@@ -35,13 +35,20 @@ def submit_record_proc(request):
     except KeyError:
         extra_point = 0
 
+    try:
+        replay_url = request.POST['replay_url']
+        if not replay_url:
+            replay_url = None
+    except KeyError:
+        replay_url = None
+
     # validate point inputs
     total = tonn_score + nann_score + sha_score + pei_score + extra_point
     if total % 10000 or total % 4:
         return HttpResponse("Invalid points...");
 
     # create record
-    record = Record(extra_point=extra_point, match_type=match_type)
+    record = Record(extra_point=extra_point, match_type=match_type, replay_url=replay_url)
     record.save()
 
     # get users
@@ -86,6 +93,13 @@ def modify_record_proc(request):
     except KeyError:
         extra_point = 0
 
+    try:
+        replay_url = request.POST['replay_url']
+        if not replay_url:
+            replay_url = None
+    except KeyError:
+        replay_url = None
+
     # validate point inputs
     total = tonn_score + nann_score + sha_score + pei_score + extra_point
     if total % 10000 or total % 4:
@@ -95,6 +109,7 @@ def modify_record_proc(request):
     record = Record.objects.get(id=rid)
     record.extra_point = extra_point
     record.match_type = match_type
+    record.replay_url = replay_url
     record.save()
 
     # get users

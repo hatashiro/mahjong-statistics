@@ -35,6 +35,11 @@
             <div class='tag'>점수</div>
             <div class='input'><input type='text' class='text' value='{{ players.pei.point }}' name='pei_score' tabindex='8'/></div>
         </div>
+        <div class='replay_url'>
+            <div class='tag'>리플레이 주소</div>
+            <div class='description'>없으면 입력 안해도 됩니다.</div>
+            <div class='input'><input type='text' class='text' value='{{ record.replay_url }}' name='replay_url' style='width:400px;' /></div>
+        </div>
         <div class='match_type'>
             <div class='tag'>대국 종류</div>
             <select name='match_type' tabindex='9'>
