@@ -53,11 +53,12 @@ img {
     line-height:40px;
     height:40px;
     padding:0px;
-    margin-right:15px;
+    margin-right:17px;
+    color:#999;
 }
 #Container div.menu a.menu_item:hover {
     cursor:pointer;
-    font-weight:bold;
+    color:#444;
 }
 #Container div.contents {
     padding:15px 30px;
