@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
+from mahjong.settings import SQLITE3_BACKUP_PATH
+
 from datetime import datetime
 
 import shutil, os
@@ -60,10 +62,10 @@ def backupdb_proc(request):
         raise Http404
 
     try:
-        os.mkdir("../sqlite3backups")
+        os.mkdir(SQLITE3_BACKUP_PATH)
     except OSError:
         pass
 
-    shutil.copyfile('mahjong-sqlite3', '../sqlite3backups/mahjong-sqlite3-backup-' + datetime.now().strftime('%Y%m%d%H%M%S'))
+    shutil.copyfile('mahjong-sqlite3', os.path.join(SQLITE3_BACKUP_PATH, 'mahjong-sqlite3-backup-' + datetime.now().strftime('%Y%m%d%H%M%S')))
 
     return HttpResponse('Database backuped')
