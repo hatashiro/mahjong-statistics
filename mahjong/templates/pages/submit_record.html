@@ -54,26 +54,6 @@
 {% endblock %}
 {% block additional %}
 <script type='text/javascript'>
-    function setNumberOnly(input) {
-        $(input).keypress(function(e) {
-            var charCode = (e.which) ? e.which : e.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-        });
-        $(input).keydown(function(e) {
-            var charCode = (e.which) ? e.which : e.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-        });
-        $(input).keyup(function(e) {
-            var charCode = (e.which) ? e.which : e.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-        });
-    }
     $(function() {
         // user list source
         var userlist = [];
@@ -104,11 +84,6 @@
                 });
             }
         });
-
-        setNumberOnly('input[name="tonn_score"]');
-        setNumberOnly('input[name="nann_score"]');
-        setNumberOnly('input[name="sha_score"]');
-        setNumberOnly('input[name="pei_score"]');
     });
 </script>
 {% endblock %}
