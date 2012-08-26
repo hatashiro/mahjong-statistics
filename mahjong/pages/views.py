@@ -46,6 +46,15 @@ def submit_record(request):
 
     return render(request, 'pages/submit_record.html', {'record': record, 'players': players})
 
+def filter_with_month(queryset, year, month):
+    to_year = year
+    to_month = month + 1
+    if to_month > 12:
+        to_month -= 12
+        to_year += 1
+
+    return queryset.filter(uploaded__gte=datetime(year, month, 1), uploaded__lt=datetime(to_year, to_month, 1))
+
 @login_required
 def records(request):
     try:
@@ -61,13 +70,6 @@ def records(request):
         year = datetime.now().year
         month = datetime.now().month
 
-    if not entire:
-        to_year = year
-        to_month = month + 1
-        if to_month > 12:
-            to_month -= 12
-            to_year += 1
-
     # get date range
     date_range = {}
     try:
@@ -76,19 +78,20 @@ def records(request):
         date_oldest = datetime.now()
 
     for _year in range(datetime.now().year, date_oldest.year-1, -1):
-
         date_range[_year] = []
         for _month in range(12, 0, -1):
             if _year == date_oldest.year and _month < date_oldest.month:
                 continue
             if _year == datetime.now().year and _month > datetime.now().month:
                 continue
+            if filter_with_month(Record.objects.filter(valid=True), _year, _month).count() == 0:
+                continue
             date_range[_year].append(_month)
 
     if entire:
         records = Record.objects.filter(valid=True)
     else:
-        records = Record.objects.filter(valid=True, uploaded__gte=datetime(year, month, 1), uploaded__lt=datetime(to_year, to_month, 1))
+        records = filter_with_month(Record.objects.filter(valid=True), year, month)
 
     return render(request, 'pages/records.html', {'date_range': date_range, 'records': records})
 
