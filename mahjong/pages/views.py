@@ -63,6 +63,7 @@ def records(request):
         year = request.GET['year']
         if year == 'all':
             entire = True
+            month = None
         else:
             year = int(year)
             month = int(request.GET['month'])
@@ -95,7 +96,7 @@ def records(request):
     else:
         records = filter_with_month(Record.objects.filter(valid=True), year, month)
 
-    return render(request, 'pages/records.html', {'date_range': date_range, 'records': records})
+    return render(request, 'pages/records.html', {'date_range': date_range, 'records': records, 'page_year': year, 'page_month': month})
 
 @login_required
 def stats(request):

@@ -7,10 +7,10 @@
     <div class='description'>대국 기록들을 확인할 수 있습니다.</div>
     <div class='dates'>
         <div class='description' style='margin-bottom:10px;'>검색 범위</div>
-        <a href='/records?year=all'>전체</a>
+        <a href='/records?year=all' {% if page_year == 'all' %}class='bold black'{% endif %}>전체</a>
         {% for year in date_range.items %}
             {% for month in year.1 %}
-            <a href='/records?year={{ year.0 }}&month={{ month }}'>{{ year.0 }}년 {{ month }}월</a>
+            <a href='/records?year={{ year.0 }}&month={{ month }}' {% if page_year == year.0 and page_month == month %}class='bold black'{% endif %}>{{ year.0 }}년 {{ month }}월</a>
             {% endfor %}
         {% endfor %}
     </div>
