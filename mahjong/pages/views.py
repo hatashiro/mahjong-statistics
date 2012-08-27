@@ -141,7 +141,7 @@ def stats(request):
             stats.append(stat)
 
     # order by winpoint
-    stats = sorted(stats, key=lambda stat: stat.winpoint)
+    stats = sorted(stats, key=lambda stat: -stat.winpoint)
 
     return render(request, 'pages/stats.html', {'date_range': date_range, 'stats': stats})
 
