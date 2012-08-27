@@ -23,6 +23,7 @@
             <th>2위</th>
             <th>3위</th>
             <th>4위</th>
+            <th>복기</th>
             {% if perms.records.submit_records %}
             <th>관리</th>
             {% endif %}
@@ -34,6 +35,7 @@
             <td>[ {{ record.player_set.all.1.kaze }} ] {{ record.player_set.all.1.user.first_name }}: {{ record.player_set.all.1.point }}</td>
             <td>[ {{ record.player_set.all.2.kaze }} ] {{ record.player_set.all.2.user.first_name }}: {{ record.player_set.all.2.point }}</td>
             <td>[ {{ record.player_set.all.3.kaze }} ] {{ record.player_set.all.3.user.first_name }}: {{ record.player_set.all.3.point }}</td>
+            <td>{% if record.replay_url %}<a href='{{ record.replay_url }}' target='_blank'>리플레이</a>{% else %}없음{% endif %}</td>
             {% if perms.records.submit_records %}
             <td>
                 <a href='/submit_record?rid={{ record.id }}'>수정</a>&nbsp;
