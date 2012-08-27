@@ -82,6 +82,10 @@ img {
     padding:5px 30px;
     font-size:13px;
 }
+#Container div.footer .footer-item {
+    color:#F52887;
+    margin-right:50px;
+}
 
 .form {
     margin:0px;
