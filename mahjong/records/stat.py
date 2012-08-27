@@ -2,14 +2,16 @@
 from django.contrib.auth.models import User
 from records.models import Record, Player
 
+from datetime import datetime
+
 class Stat:
-    self.user = None
-    self._plays = None
-    self._records = None
-    self._play_count = None
-    self.year = None
-    self.month = None
-    self.valid = False
+    user = None
+    _plays = None
+    _records = None
+    _play_count = None
+    year = None
+    month = None
+    valid = False
 
     def __init__(self, user, year=None, month=None):
         # set user
@@ -32,14 +34,14 @@ class Stat:
         if not self.user:
             return None
         if not self._plays:
-            plays = Player.objects.filter(user=self.user, record_valid=True)
+            plays = Player.objects.filter(user=self.user, record__valid=True)
             if self.year and self.month:
                 to_year = self.year
                 to_month = self.month + 1
                 if to_month > 12:
                     to_month -= 12
                     to_year += 1
-                plays = plays.filter(record_uploaded__gte=datetime(self.year, self.month, 1), record_uploaded__lt=datetime(to_year, to_month, 1))
+                plays = plays.filter(record__uploaded__gte=datetime(self.year, self.month, 1), record__uploaded__lt=datetime(to_year, to_month, 1))
             self._plays = plays
         return self._plays
 
