@@ -1,4 +1,6 @@
 # -*- coding: utf8 -*-
+from __future__ import division
+
 from django.contrib.auth.models import User
 from records.models import Record, Player
 
@@ -81,7 +83,7 @@ class Stat:
         _3 = 0
         _4 = 0
         for play in self.plays():
-            point_sum += play.point
+            point_sum += round(play.point / 1000, 2)
 
             if play.point >= 0:
                 _plus += 1
@@ -114,20 +116,27 @@ class Stat:
                 uma = 0
 
             if play.record.match_type == 1:
-                uma = uma / 2
+                uma = uma // 2
             point_sum += uma
 
         # set winpoint
         self.winpoint = point_sum
-        self.winpoint_rate = point_sum / self.play_count()
+        self.winpoint_rate = round(point_sum / self.play_count(), 2)
 
         # set wincount
         self.wincount = win_count
+        self.win_rate = round(self.wincount / self.play_count(), 2)
 
         # set rates
-        self.percent_12 = (_1 + _2) * 100 / self.play_count()
-        self.percent_plus = (_plus) * 100 / self.play_count()
-        self.percent_minus2 = (_minus2) * 100 / self.play_count()
-        self.percent_plus3 = (_plus3) * 100 / self.play_count()
-        self.percent_4 = (_4) * 100 / self.play_count()
-        self.rank_rate = (_1 + _2*2 + _3*3 + _4*4) / self.play_count()
+        self.percent_12 = round((_1 + _2) * 100 / self.play_count(), 2)
+        self.percent_plus = round((_plus) * 100 / self.play_count(), 2)
+        self.percent_minus2 = round((_minus2) * 100 / self.play_count(), 2)
+        self.percent_plus3 = round((_plus3) * 100 / self.play_count(), 2)
+        self.percent_4 = round((_4) * 100 / self.play_count(), 2)
+        self.rank_rate = round((_1 + _2*2 + _3*3 + _4*4) / self.play_count(), 2)
+
+        # set rank counts
+        self.count_1 = _1
+        self.count_2 = _2
+        self.count_3 = _3
+        self.count_4 = _4

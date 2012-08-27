@@ -4,18 +4,109 @@
 {% endblock %}
 {% block contents %}
     <div class='subtitle'>기록 통계</div>
-    <div class='description'>대국 기록에 대한 통계를 확인할 수 있습니다.</div>
+    <div class='description'>대국 기록에 대한 통계를 확인할 수 있습니다. 각 항목에 대한 설명은 하단에 있습니다.</div>
     <div class='dates'>
         <div class='description' style='margin-bottom:10px;'>검색 범위</div>
-        <a href='/stats?year=all'>전체</a>
+        <a href='/stats?year=all' {% if page_year == 'all' %}class='bold black'{% endif %}>전체</a>
         {% for year in date_range.items %}
             {% for month in year.1 %}
-            <a href='/stats?year={{ year.0 }}&month={{ month }}'>{{ year.0 }}년 {{ month }}월</a>
+            <a href='/stats?year={{ year.0 }}&month={{ month }}' {% if page_year == year.0 and page_month == month %}class='bold black'{% endif %}>{{ year.0 }}년 {{ month }}월</a>
             {% endfor %}
         {% endfor %}
     </div>
     {% if stats %}
+    <table class='stats_table'>
+        <tr>
+            <th>이름</th>
+            <th>승점</th>
+            <th>승점%</th>
+            <th>승%</th>
+            <th>12%</th>
+            <th>+%</th>
+            <th>-2%</th>
+            <th>+3%</th>
+            <th>4%</th>
+            <th style='border-left:1px solid #aaa;'>승</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>순율</th>
+            <th style='border-left:1px solid #aaa;'>국수</th>
+        </tr>
+        {% for stat in stats %}
+        <tr>
+            <td>{{ stat.user.first_name }}</td>
+            <td>{{ stat.winpoint }}</td>
+            <td>{{ stat.winpoint_rate }}</td>
+            <td>{{ stat.win_rate }}</td>
+            <td>{{ stat.percent_12 }}</td>
+            <td>{{ stat.percent_plus }}</td>
+            <td>{{ stat.percent_minus2 }}</td>
+            <td>{{ stat.percent_plus3 }}</td>
+            <td>{{ stat.percent_4 }}</td>
+            <td style='border-left:1px solid #aaa;'>{{ stat.count_1 }}</td>
+            <td>{{ stat.count_2 }}</td>
+            <td>{{ stat.count_3 }}</td>
+            <td>{{ stat.count_4 }}</td>
+            <td>{{ stat.rank_rate }}</td>
+            <td style='border-left:1px solid #aaa;'>{{ stat.play_count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
     {% else %}
     <div style='padding:20px 0px;font-size:25px;'>기록이 없네요...</div>
     {% endif %}
+    <div class='column_description_header'>각 항목별 설명</div>
+    <table class='column_description'>
+        <tr>
+            <th>항목</th>
+            <th>설명</th>
+            <th>계산 방법</th>
+        </tr>
+        <tr>
+            <td class='name'>승점</td>
+            <td class='desc'>승리시 획득한 점수 및 등수 추가점(우마)의 합입니다.</td>
+            <td>(점수 / 1000 + 순위점)의 합. 순위점은 반장 기준 +20, +10, -10, -20이며 동풍은 그 절반.</td>
+        </tr>
+        <tr>
+            <td class='name'>승점률</td>
+            <td class='desc'>대국수 대비 승점의 값입니다.</td>
+            <td>승점 / 전체국수</td>
+        </tr>
+        <tr>
+            <td class='name'>승%</td>
+            <td class='desc'>대국수 대비 승수의 비율입니다.</td>
+            <td>승수(단, 동풍은 0.5로 계산) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>12%</td>
+            <td class='desc'>1, 2등을 한 대국수의 비율입니다.</td>
+            <td>(1, 2등을 한 대국수) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>+%</td>
+            <td class='desc'>점수가 +0 이상인 대국수의 비율입니다.</td>
+            <td>(점수가 +0 이상인 대국수) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>-2%</td>
+            <td class='desc'>점수가 +0 미만인 2등 대국수의 비율입니다.</td>
+            <td>(점수가 +0 미만인 2등 대국수) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>+3%</td>
+            <td class='desc'>점수가 +0 이상인 3등 대국수의 비율입니다.</td>
+            <td>(점수가 +0 이상인 3등 대국수) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>4%</td>
+            <td class='desc'>4등 대국수의 비율입니다.</td>
+            <td>(4등 대국수) / 전체국수 * 100</td>
+        </tr>
+        <tr>
+            <td class='name'>순율</td>
+            <td class='desc'>전체 대국에서의 평균 순위입니다.</td>
+            <td> ( (1위 대국수) * 1 + (2위 대국수) * 2 + (3위 대국수) * 3 + (4위 대국수) * 4 ) / 전체국수</td>
+        </tr>
+    </table>
 {% endblock %}

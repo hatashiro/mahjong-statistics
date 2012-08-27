@@ -103,6 +103,7 @@ def stats(request):
         year = request.GET['year']
         if year == 'all':
             entire = True
+            month = None
         else:
             year = int(year)
             month = int(request.GET['month'])
@@ -143,7 +144,7 @@ def stats(request):
     # order by winpoint
     stats = sorted(stats, key=lambda stat: -stat.winpoint)
 
-    return render(request, 'pages/stats.html', {'date_range': date_range, 'stats': stats})
+    return render(request, 'pages/stats.html', {'date_range': date_range, 'stats': stats, 'page_year': year, 'page_month': month})
 
 @login_required
 def change_passwd(request):

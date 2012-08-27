@@ -8,20 +8,47 @@
 .dates a:hover {
     color:#444;
 }
-.record_table {
+.stats_table {
     margin:0px;
     padding:0px;
     margin-top:25px;
     border-collapse:collapse;
     font-size:13px;
 }
-.record_table tr {
+.stats_table tr {
     border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
 }
-.record_table tr th {
+.stats_table tr th {
     padding:5px 15px;
 }
-.record_table tr td {
+.stats_table tr td {
     padding:10px 15px;
+}
+.column_description_header {
+    margin-top:50px;
+    font-size:17px;
+}
+.column_description {
+    margin:0px;
+    padding:0px;
+    border-collapse:collapse;
+    font-size:14px;
+}
+.column_description tr th {
+    padding:5px 15px;
+    font-size:13px;
+    font-weight:normal;
+    border-bottom:1px solid #aaa;
+    text-align:left;
+}
+.column_description tr td {
+    padding:5px 15px;
+}
+.column_description tr td.name {
+    font-size:15px;
+    font-weight:bold;
+}
+.column_description tr td.desc {
+    font-style:italic;
 }
