@@ -7,17 +7,17 @@ class Stat:
     self._plays = None
     self._records = None
     self._play_count = None
-    self.from_dt = None
-    self.to_dt = None
+    self.year = None
+    self.month = None
     self.valid = False
 
-    def __init__(self, user, from_dt=None, to_dt=None):
+    def __init__(self, user, year=None, month=None):
         # set user
         self.user = user
 
         # set date
-        self.from_dt = from_dt
-        self.to_dt = to_dt
+        self.year = year
+        self.month = month
 
         if self.play_count() == 0:
             self.valid = False
@@ -33,10 +33,13 @@ class Stat:
             return None
         if not self._plays:
             plays = Player.objects.filter(user=self.user, record_valid=True)
-            if from_dt:
-                plays = plays.filter(record_uploaded__gte=self.from_dt)
-            if to_dt:
-                plays = plays.filter(record_uploaded__lte=self.to_dt)
+            if self.year and self.month:
+                to_year = self.year
+                to_month = self.month + 1
+                if to_month > 12:
+                    to_month -= 12
+                    to_year += 1
+                plays = plays.filter(record_uploaded__gte=datetime(self.year, self.month, 1), record_uploaded__lt=datetime(to_year, to_month, 1))
             self._plays = plays
         return self._plays
 

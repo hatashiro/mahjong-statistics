@@ -1,0 +1,27 @@
+.dates {
+    margin-top:25px;
+}
+.dates a {
+    color:#777;
+    margin-right:15px;
+}
+.dates a:hover {
+    color:#444;
+}
+.record_table {
+    margin:0px;
+    padding:0px;
+    margin-top:25px;
+    border-collapse:collapse;
+    font-size:13px;
+}
+.record_table tr {
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+}
+.record_table tr th {
+    padding:5px 15px;
+}
+.record_table tr td {
+    padding:10px 15px;
+}
