@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block header %}
 <link href='/static/css/stats.css' rel='stylesheet' type='text/css' />
+<script src="/static/js/jquery.sortElements.js" type='text/javascript'></script>
+<script src="/static/js/jquery.disableTextSelect.js" type='text/javascript'></script>
 {% endblock %}
 {% block contents %}
     <div class='subtitle'>기록 통계</div>
@@ -16,25 +18,25 @@
     </div>
     {% if stats %}
     <table class='stats_table'>
-        <tr>
-            <th>이름</th>
-            <th>승점</th>
-            <th>승점%</th>
-            <th>승%</th>
-            <th>12%</th>
-            <th>+%</th>
-            <th>-2%</th>
-            <th>+3%</th>
-            <th>4%</th>
-            <th style='border-left:1px solid #aaa;'>승</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>순율</th>
-            <th style='border-left:1px solid #aaa;'>국수</th>
+        <tr class='thead'>
+            <th>이름<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='desc'>승점<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>승점%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>승%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>12%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>+%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>-2%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>+3%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>4%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th style='border-left:1px solid #aaa;'>승<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>2<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>3<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>4<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>순율<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th style='border-left:1px solid #aaa;'>국수<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
         </tr>
         {% for stat in stats %}
-        <tr>
+        <tr class='tdata'>
             <td>{{ stat.user.first_name }}</td>
             <td>{{ stat.winpoint }}</td>
             <td>{{ stat.winpoint_rate }}</td>
@@ -109,4 +111,35 @@
             <td> ( (1위 대국수) * 1 + (2위 대국수) * 2 + (3위 대국수) * 3 + (4위 대국수) * 4 ) / 전체국수</td>
         </tr>
     </table>
+{% endblock %}
+{% block additional %}
+<script type='text/javascript'>
+    $(function() {
+        // disable text select plugin
+        $('.stats_table tr.thead th').disableTextSelect();
+
+        // set sort function
+        $('.stats_table tr.thead th').click(function(e) {
+            var sort_type = -1; // 1 for asc, -1 for desc
+            if ($(this).hasClass('desc')) sort_type = 1;
+
+            // clear all sort option
+            $('.stats_table tr.thead th').removeClass('desc');
+            $('.stats_table tr.thead th').removeClass('asc');
+
+            // add sort option
+            if (sort_type == 1)
+                $(this).addClass("asc");
+            else
+                $(this).addClass("desc");
+
+            // get index to be sorted by
+            var sort_by = $('.stats_table tr.thead th').index(this);
+
+            $('.stats_table tr.tdata').sortElements(function(a, b) {
+                return $($('td', a)[sort_by]).text() > $($('td', b)[sort_by]).text() ? sort_type : -1 * sort_type;
+            });
+        });
+    });
+</script>
 {% endblock %}

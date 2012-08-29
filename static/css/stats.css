@@ -21,6 +21,17 @@
 }
 .stats_table tr th {
     padding:5px 15px;
+    cursor:pointer;
+}
+.stats_table tr.thead th span.sort {
+    display:none;
+    margin-left:5px;
+}
+.stats_table tr.thead th.desc span.sort.desc {
+    display:inline;
+}
+.stats_table tr.thead th.asc span.sort.asc {
+    display:inline;
 }
 .stats_table tr td {
     padding:10px 15px;
