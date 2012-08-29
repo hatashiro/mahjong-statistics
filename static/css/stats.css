@@ -21,16 +21,18 @@
 }
 .stats_table tr th {
     padding:5px 15px;
+}
+.stats_table tr th.sort_by {
     cursor:pointer;
 }
-.stats_table tr.thead th span.sort {
+.stats_table tr.thead th.sort_by span.sort {
     display:none;
     margin-left:5px;
 }
-.stats_table tr.thead th.desc span.sort.desc {
+.stats_table tr.thead th.sort_by.desc span.sort.desc {
     display:inline;
 }
-.stats_table tr.thead th.asc span.sort.asc {
+.stats_table tr.thead th.sort_by.asc span.sort.asc {
     display:inline;
 }
 .stats_table tr td {

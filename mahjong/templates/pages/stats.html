@@ -19,21 +19,21 @@
     {% if stats %}
     <table class='stats_table'>
         <tr class='thead'>
-            <th>이름<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th class='desc'>승점<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>승점%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>승%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>12%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>+%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>-2%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>+3%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>4%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th style='border-left:1px solid #aaa;'>승<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>2<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>3<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>4<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th>순율<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
-            <th style='border-left:1px solid #aaa;'>국수<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th>이름</th>
+            <th class='sort_by desc'>승점<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>승점%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>승%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>12%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>+%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>-2%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>+3%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>4%<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by' style='border-left:1px solid #aaa;'>승<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>2<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>3<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>4<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by'>순율<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
+            <th class='sort_by' style='border-left:1px solid #aaa;'>국수<span class='sort asc'>▲</span><span class='sort desc'>▼</span></th>
         </tr>
         {% for stat in stats %}
         <tr class='tdata'>
@@ -116,10 +116,10 @@
 <script type='text/javascript'>
     $(function() {
         // disable text select plugin
-        $('.stats_table tr.thead th').disableTextSelect();
+        $('.stats_table tr.thead th.sort_by').disableTextSelect();
 
         // set sort function
-        $('.stats_table tr.thead th').click(function(e) {
+        $('.stats_table tr.thead th.sort_by').click(function(e) {
             var sort_type = -1; // 1 for asc, -1 for desc
             if ($(this).hasClass('desc')) sort_type = 1;
 
@@ -137,7 +137,7 @@
             var sort_by = $('.stats_table tr.thead th').index(this);
 
             $('.stats_table tr.tdata').sortElements(function(a, b) {
-                return $($('td', a)[sort_by]).text() > $($('td', b)[sort_by]).text() ? sort_type : -1 * sort_type;
+                return parseFloat($($('td', a)[sort_by]).text()) > parseFloat($($('td', b)[sort_by]).text()) ? sort_type : -1 * sort_type;
             });
         });
     });
