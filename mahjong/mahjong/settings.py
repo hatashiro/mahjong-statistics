@@ -1,5 +1,7 @@
 # Django settings for mahjong project.
 
+from os import path
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -10,7 +12,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-SQLITE3_PATH = '/var/www/mahjong/mahjong-sqlite3'
+PROJECT_PATH = path.join(path.dirname(path.realpath(__file__)), '..')
+
+SQLITE3_PATH = path.join(PROJECT_PATH, 'mahjong-sqlite3')
 
 DATABASES = {
     'default': {
@@ -23,7 +27,7 @@ DATABASES = {
     }
 }
 
-SQLITE3_BACKUP_PATH = '/var/www/sqlite3backups'
+SQLITE3_BACKUP_PATH = path.join(PROJECT_PATH, '../sqlite3backups')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -69,7 +73,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "/var/www/static",
+    path.join(PROJECT_PATH, '../static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -109,7 +113,7 @@ ROOT_URLCONF = 'mahjong.urls'
 WSGI_APPLICATION = 'mahjong.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/var/www/mahjong/templates',
+    path.join(PROJECT_PATH, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
