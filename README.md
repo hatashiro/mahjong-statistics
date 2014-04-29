@@ -1,4 +1,4 @@
-# Mahjong Statics
+# Mahjong Statistics
 
 ## Overview
 
@@ -8,7 +8,7 @@ This service provide this features.
 
 - Django-admin based admin page : http(s)://your.domain/admin
 - Enter match records and view them by month.
-- Check ranking and statics calculated by match records.
+- Check ranking and statistics calculated by match records.
 - Other management functions (change password, back-up the database)
 
 You can freely fork and use this project for a personal purpose.
